@@ -1,0 +1,14 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>itau.pix</groupId>
+  <artifactId>itau-queued-pix-apis</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>pix-commons</module>
+    <module>pix-gateway</module>
+    <module>pix-persistence</module>
+    <module>pix-worker</module>
+  </modules>
+</project>
