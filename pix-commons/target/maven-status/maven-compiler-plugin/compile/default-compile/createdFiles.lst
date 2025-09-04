@@ -1,6 +1,0 @@
-itau/pix/commons/event/PagamentoProcessadoEvent.class
-itau/pix/commons/dto/EventoChavePixDTO.class
-itau/pix/commons/dto/PagamentoSolicitadoDTO.class
-itau/pix/commons/messaging/RabbitMQConstants.class
-itau/pix/commons/exceptions/ChavePixInvalidaException.class
-itau/pix/commons/enums/StatusPagamento.class
