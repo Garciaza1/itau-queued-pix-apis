@@ -1,6 +1,3 @@
-/home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/dto/ChavePix.java
-/home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/dto/EventoChavePixDTO.java
+/home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/config/DatabaseConstants.java
 /home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/messaging/RabbitMQConstants.java
-/home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/dto/PagamentoSolicitadoDTO.java
 /home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/enums/StatusPagamento.java
-/home/gustavo/Documentos/test/Itau/itau-queued-pix-apis/pix-commons/src/main/java/itau/pix/commons/event/PagamentoProcessadoEvent.java
