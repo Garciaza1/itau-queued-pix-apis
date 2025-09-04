@@ -1,0 +1,16 @@
+FROM eclipse-temurin:24-jdk AS build
+WORKDIR /app
+
+COPY ~/.m2 /root/.m2
+
+COPY mvnw* pom.xml ./
+COPY .mvn .mvn
+COPY src src
+
+RUN ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:24-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+
+ENTRYPOINT ["java","-jar","app.jar"]

@@ -1,0 +1,21 @@
+FROM maven:3.9.9-eclipse-temurin-24 AS builder
+WORKDIR /app
+
+COPY pom.xml .
+COPY pix-commons/pom.xml pix-commons/
+COPY pix-gateway/pom.xml pix-gateway/
+COPY pix-persistence/pom.xml pix-persistence/
+COPY pix-worker/pom.xml pix-worker/
+
+RUN mvn dependency:go-offline -DskipTests
+
+COPY . .
+
+RUN mvn -pl pix-gateway -am clean package -DskipTests
+
+FROM eclipse-temurin:24-jdk
+WORKDIR /app
+
+COPY --from=builder /app/pix-gateway/target/*.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

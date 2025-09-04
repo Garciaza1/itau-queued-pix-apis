@@ -1,0 +1,17 @@
+### Consultar chave Pix por ID
+GET http://localhost:8081/api/pix?id=6ccc308d-f026-4304-9a28-78707a3750e9
+
+### Consultar chaves Pix por tipo de chave
+GET http://localhost:8081/api/pix?tipoChave=cpf
+
+### Consultar chaves Pix por agência e conta
+GET http://localhost:8081/api/pix?numeroAgencia=1234&numeroConta=12345678
+
+### Consultar chaves Pix por nome do correntista
+GET http://localhost:8081/api/pix?nomeCorrentista=Joao
+
+### Consultar chaves Pix por data de inclusão
+GET http://localhost:8081/api/pix?dataInclusao=2025-09-04
+
+### Consultar chaves Pix por data de inativação
+GET http://localhost:8081/api/pix?dataInativacao=2025-09-01

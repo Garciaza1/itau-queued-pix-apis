@@ -1,0 +1,12 @@
+POST http://localhost:8081/api/pix
+Content-Type: application/json
+
+{
+  "tipoChave": "cpf",
+  "valorChave": "12345678801",
+  "tipoConta": "corrente",
+  "numeroAgencia": "1234",
+  "numeroConta": "12345678",
+  "nomeCorrentista": "Joao",
+  "sobrenomeCorrentista": "Silva"
+}
