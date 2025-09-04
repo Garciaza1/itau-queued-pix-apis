@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import itau.gateway.queue.domain.model.ChavePix;
+import itau.gateway.queue.domain.model.chave.ChavePix;
 
 public interface ChavePixRepositoryPort {
     ChavePix save(ChavePix chavePix);

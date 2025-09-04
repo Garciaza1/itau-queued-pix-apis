@@ -1,9 +1,7 @@
 package itau.pix.commons.enums;
 
 public enum StatusPagamento {
-    SOLICITADO,
-    PROCESSADO,
+    PROCESSANDO,
     SUCESSO,
     FALHOU,
-    CANCELADO
 }

@@ -1,12 +1,12 @@
 package itau.gateway.queue.infrastructure.adapter.out;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import itau.gateway.queue.domain.model.ChavePix;
+import org.springframework.stereotype.Repository;
+
+import itau.gateway.queue.domain.model.chave.ChavePix;
 import itau.gateway.queue.domain.port.out.ChavePixRepositoryPort;
 
 @Repository

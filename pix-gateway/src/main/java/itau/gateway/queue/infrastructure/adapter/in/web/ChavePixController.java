@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import itau.gateway.queue.domain.model.ConsultaChavePixResponse;
-import itau.gateway.queue.domain.model.InclusaoChavePixRequest;
-import itau.gateway.queue.domain.model.InclusaoChavePixResponse;
+import itau.gateway.queue.domain.model.chave.ConsultaChavePixResponse;
+import itau.gateway.queue.domain.model.chave.InclusaoChavePixRequest;
+import itau.gateway.queue.domain.model.chave.InclusaoChavePixResponse;
 import itau.gateway.queue.domain.port.in.ChavePixUseCase;
 import jakarta.validation.Valid;
 

@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 
 import itau.gateway.queue.domain.exception.NotFoundException;
 import itau.gateway.queue.domain.exception.UnprocessableEntityException;
-import itau.gateway.queue.domain.model.ChavePix;
-import itau.gateway.queue.domain.model.ConsultaChavePixResponse;
-import itau.gateway.queue.domain.model.InclusaoChavePixRequest;
-import itau.gateway.queue.domain.model.InclusaoChavePixResponse;
+import itau.gateway.queue.domain.model.chave.ChavePix;
+import itau.gateway.queue.domain.model.chave.ConsultaChavePixResponse;
+import itau.gateway.queue.domain.model.chave.InclusaoChavePixRequest;
+import itau.gateway.queue.domain.model.chave.InclusaoChavePixResponse;
 import itau.gateway.queue.domain.port.in.ChavePixUseCase;
 import itau.gateway.queue.domain.port.out.ChavePixRepositoryPort;
 

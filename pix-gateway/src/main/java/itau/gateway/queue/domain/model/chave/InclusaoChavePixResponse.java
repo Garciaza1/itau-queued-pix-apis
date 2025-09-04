@@ -1,4 +1,4 @@
-package itau.gateway.queue.domain.model;
+package itau.gateway.queue.domain.model.chave;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import itau.gateway.queue.domain.model.ChavePix;
+import itau.gateway.queue.domain.model.chave.ChavePix;
 
 public interface SpringDataChavePixRepository extends MongoRepository<ChavePix, UUID> {
 

@@ -9,6 +9,16 @@ services:
     networks:
       - backend
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-local
+    hostname: rabbitmq-host
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - backend
+
   pix-gateway:
     build:
       context: .

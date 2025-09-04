@@ -1,4 +1,4 @@
-package itau.gateway.queue.domain.model;
+package itau.gateway.queue.domain.model.chave;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
