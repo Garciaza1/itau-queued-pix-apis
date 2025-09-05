@@ -2,6 +2,7 @@ package itau.gateway.queue.application.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import itau.gateway.queue.application.port.PaymentRepositoryPort;
 import itau.gateway.queue.domain.model.pagamento.Pagamento;
@@ -10,6 +11,7 @@ import itau.gateway.queue.infrastructure.config.IdGenerator;
 import itau.pix.commons.enums.StatusPagamento;
 import itau.pix.commons.messaging.RabbitMQConstants;
 
+@Service
 public class PagamentoService {
 
     private final IdGenerator idGenerator;
