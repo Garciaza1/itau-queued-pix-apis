@@ -21,6 +21,8 @@ public class PagamentoWorkerService implements PagamentoWorkerUseCase {
     public void process(PagamentoMessage message) {
         System.out.println("Processing payment: " + message.getId());
 
+        // validação simples: falha se o valor for menor que 10
+        // poderia verificar saldo, etc. apenas um exemplo   
         if (message.getAmount().doubleValue() < 10.0) {
             handleFailed(message);
             return;
