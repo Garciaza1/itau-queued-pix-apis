@@ -1,1 +1,6 @@
+itau\worker\queue\application\port\in\PagamentoWorkerUseCase.class
+itau\worker\queue\infrastructure\messaging\PaymentListener.class
+itau\worker\queue\infrastructure\messaging\RabbitMQConfig.class
+itau\worker\queue\domain\model\PagamentoMessage.class
 itau\worker\queue\QueueApplication.class
+itau\worker\queue\application\service\PagamentoWorkerService.class

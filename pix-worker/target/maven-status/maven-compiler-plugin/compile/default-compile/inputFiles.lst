@@ -1,1 +1,6 @@
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-worker\src\main\java\itau\worker\queue\application\port\in\PagamentoWorkerUseCase.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-worker\src\main\java\itau\worker\queue\application\service\PagamentoWorkerService.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-worker\src\main\java\itau\worker\queue\domain\model\PagamentoMessage.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-worker\src\main\java\itau\worker\queue\infrastructure\messaging\PaymentListener.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-worker\src\main\java\itau\worker\queue\infrastructure\messaging\RabbitMQConfig.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-worker\src\main\java\itau\worker\queue\QueueApplication.java
