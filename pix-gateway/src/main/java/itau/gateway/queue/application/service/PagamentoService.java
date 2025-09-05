@@ -25,6 +25,7 @@ public class PagamentoService implements PagamentoUseCase {
         this.rabbitTemplate = rabbitTemplate;
     }
 
+    @Override
     public void processPayment(Pagamento paymentRequest) {
 
         String paymentId = idGenerator.generateId();

@@ -1,5 +1,4 @@
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\application\port\PaymentMessageSenderPort.java
-C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\application\port\PaymentRepositoryPort.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\application\service\ChavePixService.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\application\service\PagamentoService.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\exception\NotFoundException.java
@@ -13,13 +12,16 @@ C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\mai
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\model\pagamento\PagamentoMessage.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\model\pagamento\PagamentoRequest.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\port\in\ChavePixUseCase.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\port\in\PagamentoUseCase.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\port\out\ChavePixRepositoryPort.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\domain\port\out\PaymentRepositoryPort.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\in\web\ChavePixController.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\in\web\PagamentoController.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\ChavePixRepositoryAdapter.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\PaymentRepositoryAdapter.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\RabbitMqAdapter.java
-C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\RedisPixAdapter.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\SpringDataChavePixRepository.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\SpringDataPagamentoRepository.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\BeanConfig.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\IdGenerator.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\MongoConfig.java
