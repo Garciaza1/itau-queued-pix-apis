@@ -7,25 +7,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import itau.gateway.queue.application.service.PagamentoService;
 import itau.gateway.queue.domain.model.pagamento.Pagamento;
 import itau.gateway.queue.domain.model.pagamento.PagamentoRequest;
+import itau.gateway.queue.domain.port.in.PagamentoUseCase;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/pix/payments")
 public class PagamentoController {
 
-    private final PagamentoService pagamentoService;
+    private final PagamentoUseCase pagamentoUseCase;
 
-    public PagamentoController(PagamentoService pagamentoService) {
-        this.pagamentoService = pagamentoService;
+    public PagamentoController(PagamentoUseCase pagamentoUseCase) {
+        this.pagamentoUseCase = pagamentoUseCase;
     }
 
     @PostMapping
     public ResponseEntity<Void> processPayment(@Valid @RequestBody PagamentoRequest paymentRequest) {
         Pagamento pagamento = convertToPagamento(paymentRequest);
-        pagamentoService.processPayment(pagamento);
+        pagamentoUseCase.processPayment(pagamento);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

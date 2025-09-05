@@ -4,15 +4,16 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import itau.gateway.queue.application.port.PaymentRepositoryPort;
 import itau.gateway.queue.domain.model.pagamento.Pagamento;
 import itau.gateway.queue.domain.model.pagamento.PagamentoMessage;
+import itau.gateway.queue.domain.port.in.PagamentoUseCase;
+import itau.gateway.queue.domain.port.out.PaymentRepositoryPort;
 import itau.gateway.queue.infrastructure.config.IdGenerator;
 import itau.pix.commons.enums.StatusPagamento;
 import itau.pix.commons.messaging.RabbitMQConstants;
 
 @Service
-public class PagamentoService {
+public class PagamentoService implements PagamentoUseCase {
 
     private final IdGenerator idGenerator;
     private final PaymentRepositoryPort paymentRepository;
