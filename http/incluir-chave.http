@@ -3,10 +3,11 @@ Content-Type: application/json
 
 {
   "tipoChave": "cpf",
-  "valorChave": "12345678801",
+  "valorChave": "12345678802",
   "tipoConta": "corrente",
-  "numeroAgencia": "1234",
+  "numeroAgencia": "1235",
   "numeroConta": "12345678",
   "nomeCorrentista": "Joao",
-  "sobrenomeCorrentista": "Silva"
+  "sobrenomeCorrentista": "Silva",
+  "saldo": 1000.00
 }

@@ -15,8 +15,8 @@ public class PagamentoRequest {
     private BigDecimal amount;
 
     @NotBlank(message = "O remetente não pode ser nulo ou vazio.")
-    private String sender;
+    private String senderAccount;
 
     @NotBlank(message = "O destinatário não pode ser nulo ou vazio.")
-    private String receiver;
+    private String receiverPixKey;
 }

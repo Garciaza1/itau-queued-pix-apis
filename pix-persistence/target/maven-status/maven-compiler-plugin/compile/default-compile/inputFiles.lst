@@ -1,1 +1,11 @@
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\application\port\in\PagamentoPersistenceUseCase.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\application\port\out\PagamentoRepositoryPort.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\application\service\PaymentPersistenceService.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\domain\model\Pagamento.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\domain\model\PagamentoMessage.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\infrastructure\adapter\out\PagamentoRepositoryAdapter.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\infrastructure\adapter\out\SpringDataPagamentoRepository.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\infrastructure\config\MongoConfig.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\infrastructure\config\RabbitMQConfig.java
+C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\infrastructure\messaging\PaymentListener.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-persistence\src\main\java\itau\persistence\queue\QueueApplication.java

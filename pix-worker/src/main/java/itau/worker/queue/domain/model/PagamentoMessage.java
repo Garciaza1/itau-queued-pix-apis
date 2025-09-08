@@ -12,8 +12,9 @@ public class PagamentoMessage {
 
     private String id;
     private BigDecimal amount;
-    private String sender;
-    private String receiver;
+    private String senderAccount;
+    private String receiverPixKey;
     private StatusPagamento status;
     private int retryCount = 0;
+    private String errorDescription;
 }

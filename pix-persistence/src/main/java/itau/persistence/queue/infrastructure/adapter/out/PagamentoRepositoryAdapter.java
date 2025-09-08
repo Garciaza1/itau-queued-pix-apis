@@ -1,8 +1,11 @@
 package itau.persistence.queue.infrastructure.adapter.out;
 
+import org.springframework.stereotype.Component;
+
 import itau.persistence.queue.application.port.out.PagamentoRepositoryPort;
 import itau.persistence.queue.domain.model.Pagamento;
 
+@Component
 public class PagamentoRepositoryAdapter implements PagamentoRepositoryPort {
 
     private final SpringDataPagamentoRepository repository;
@@ -16,4 +19,8 @@ public class PagamentoRepositoryAdapter implements PagamentoRepositoryPort {
         return repository.save(pagamento);
     }
 
+    @Override
+    public java.util.Optional<Pagamento> findById(String id) {
+        return repository.findById(id);
+    }
 }

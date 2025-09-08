@@ -28,23 +28,24 @@ public class PagamentoService implements PagamentoUseCase {
     @Override
     public void processPayment(Pagamento paymentRequest) {
 
+        // gera id unico
         String paymentId = idGenerator.generateId();
 
         Pagamento paymentEntity = new Pagamento();
         paymentEntity.setId(paymentId);
         paymentEntity.setAmount(paymentRequest.getAmount());
-        paymentEntity.setSender(paymentRequest.getSender());
-        paymentEntity.setReceiver(paymentRequest.getReceiver());
+        paymentEntity.setSenderAccount(paymentRequest.getSenderAccount());
+        paymentEntity.setReceiverPixKey(paymentRequest.getReceiverPixKey());
         paymentEntity.setStatus(StatusPagamento.PROCESSANDO);
 
         // salva asincronamente.
         saveAsync(paymentEntity);
-        
+
         PagamentoMessage paymentMessage = new PagamentoMessage();
         paymentMessage.setId(paymentId);
         paymentMessage.setAmount(paymentRequest.getAmount());
-        paymentMessage.setSender(paymentRequest.getSender());
-        paymentMessage.setReceiver(paymentRequest.getReceiver());
+        paymentMessage.setSenderAccount(paymentRequest.getSenderAccount());
+        paymentMessage.setReceiverPixKey(paymentRequest.getReceiverPixKey());
 
         rabbitTemplate.convertAndSend(RabbitMQConstants.FILA_PAGAMENTO, paymentMessage);
         System.out.println("Payment with ID " + paymentId + " has been sent to the processing RabbitMQ queue.");

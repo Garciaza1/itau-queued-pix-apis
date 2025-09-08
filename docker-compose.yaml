@@ -1,23 +1,41 @@
+version: '3.9'
+
 services:
   mongo:
     image: mongo:7.0
-    container_name: mongo-local
+    container_name: mongo
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
     networks:
       - backend
+    environment:
+      MONGO_INITDB_DATABASE: itau_challenge
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --eval 'db.adminCommand(\"ping\")' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq-local
-    hostname: rabbitmq-host
+    container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
     networks:
       - backend
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   pix-gateway:
     build:
@@ -25,12 +43,53 @@ services:
       dockerfile: pix-gateway/Dockerfile
     container_name: pix-gateway
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/challenge
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/itau_challenge
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
     ports:
       - "8081:8081"
+    networks:
+      - backend
+
+  pix-worker:
+    build:
+      context: .
+      dockerfile: pix-worker/Dockerfile
+    container_name: pix-worker
+    depends_on:
+      mongo:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/itau_challenge
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    networks:
+      - backend
+
+  pix-persistence:
+    build:
+      context: .
+      dockerfile: pix-persistence/Dockerfile
+    container_name: pix-persistence
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/itau_challenge
     networks:
       - backend
 

@@ -23,14 +23,15 @@ public class ChavePix {
 
     @Id
     private UUID id;
-    private String tipoChave; // celular | email | cpf | cnpj | aleatorio
+    private String tipoChave;
     private String valorChave;
-    private String tipoConta; // corrente | poupanca
+    private String tipoConta;
     private String numeroAgencia;
     private String numeroConta;
     private String nomeCorrentista;
     private String sobrenomeCorrentista;
+    private Double saldo;
     private LocalDateTime dataHoraInclusao;
     private LocalDateTime dataHoraInativacao;
-    private String status; // ATIVO | INATIVO
+    private String status;
 }

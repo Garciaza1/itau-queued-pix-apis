@@ -1,12 +1,16 @@
 package itau.persistence.queue.infrastructure.messaging;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
 
 import itau.persistence.queue.application.port.in.PagamentoPersistenceUseCase;
 import itau.persistence.queue.domain.model.PagamentoMessage;
 import itau.pix.commons.messaging.RabbitMQConstants;
 
+@Component
 public class PaymentListener {
+
     private final PagamentoPersistenceUseCase persistenceService;
 
     public PaymentListener(PagamentoPersistenceUseCase persistenceService) {
@@ -14,12 +18,14 @@ public class PaymentListener {
     }
 
     @RabbitListener(queues = RabbitMQConstants.FILA_PAGAMENTO_SUCESSO)
-    public void receiveSuccess(PagamentoMessage message) {
+    public void receiveSuccess(@Payload PagamentoMessage message) {
+        System.out.println("📥 [SUCCESS QUEUE] Received message: " + message);
         persistenceService.persist(message, true);
     }
 
     @RabbitListener(queues = RabbitMQConstants.FILA_PAGAMENTO_FALHOU)
-    public void receiveFailed(PagamentoMessage message) {
+    public void receiveFailed(@Payload PagamentoMessage message) {
+        System.out.println("📥 [FAILED QUEUE] Received message: " + message);
         persistenceService.persist(message, false);
     }
 

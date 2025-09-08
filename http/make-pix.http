@@ -1,0 +1,8 @@
+POST http://localhost:8081/api/pix/payments
+Content-Type: application/json
+
+{
+  "amount": 200.00,
+  "senderAccount": "1234",
+  "receiverPixKey": "12345678802"
+}

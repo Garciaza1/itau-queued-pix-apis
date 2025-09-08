@@ -32,8 +32,8 @@ public class PagamentoController {
     private Pagamento convertToPagamento(PagamentoRequest paymentRequest) {
         Pagamento pagamento = new Pagamento();
         pagamento.setAmount(paymentRequest.getAmount());
-        pagamento.setSender(paymentRequest.getSender());
-        pagamento.setReceiver(paymentRequest.getReceiver());
+        pagamento.setSenderAccount(paymentRequest.getSenderAccount());
+        pagamento.setReceiverPixKey(paymentRequest.getReceiverPixKey());
         return pagamento;
     }
 

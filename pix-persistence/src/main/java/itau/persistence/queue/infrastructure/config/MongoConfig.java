@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -16,12 +17,19 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient() {
-        return MongoClients.create(
-                MongoClientSettings.builder()
-                        .applyConnectionString(new com.mongodb.ConnectionString(DatabaseConstants.CONNECTION_STRING))
-                        .uuidRepresentation(UuidRepresentation.STANDARD) // 🔑 aqui define o padrão
-                        .build()
-        );
+        ConnectionString connectionString = new ConnectionString(DatabaseConstants.CONNECTION_STRING);
+
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .uuidRepresentation(UuidRepresentation.STANDARD)
+                .applyToConnectionPoolSettings(builder -> {
+                    builder.maxSize(50);      // máximo de conexões no pool
+                    builder.minSize(5);       // mínimo de conexões abertas
+                    builder.maxWaitTime(1000, java.util.concurrent.TimeUnit.MILLISECONDS); // tempo máximo de espera
+                })
+                .build();
+
+        return MongoClients.create(settings);
     }
 
     @Bean
