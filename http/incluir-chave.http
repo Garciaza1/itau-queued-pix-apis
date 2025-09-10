@@ -11,3 +11,14 @@ Content-Type: application/json
   "sobrenomeCorrentista": "Silva",
   "saldo": 1000.00
 }
+------
+{
+  "tipoChave": "cpf",
+  "valorChave": "12345678801",
+  "tipoConta": "corrente",
+  "numeroAgencia": "1234",
+  "numeroConta": "12345679",
+  "nomeCorrentista": "Pedro",
+  "sobrenomeCorrentista": "Pascal",
+  "saldo": 1000.00
+}
