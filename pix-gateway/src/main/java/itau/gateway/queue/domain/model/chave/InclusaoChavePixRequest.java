@@ -1,5 +1,7 @@
 package itau.gateway.queue.domain.model.chave;
 
+import java.math.BigDecimal;
+
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -41,7 +43,7 @@ public class InclusaoChavePixRequest {
 
     @NotNull(message = "O saldo é obrigatório.")
     @DecimalMin(value = "0.01", message = "O saldo deve ser maior que zero")
-    private Double saldo;
+    private BigDecimal saldo;
 
     // não é obrigatório
     @Size(max = 45, message = "O sobrenome do correntista deve ter no máximo 45 caracteres.")

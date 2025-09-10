@@ -1,12 +1,14 @@
 package itau.persistence.queue.application.service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import itau.persistence.queue.application.port.in.PagamentoPersistenceUseCase;
+import itau.persistence.queue.application.port.out.ChavePixRepositoryPort;
 import itau.persistence.queue.application.port.out.PagamentoRepositoryPort;
+import itau.persistence.queue.domain.model.ChavePix;
 import itau.persistence.queue.domain.model.Pagamento;
 import itau.persistence.queue.domain.model.PagamentoMessage;
 import itau.pix.commons.enums.StatusPagamento;
@@ -15,40 +17,96 @@ import itau.pix.commons.enums.StatusPagamento;
 public class PaymentPersistenceService implements PagamentoPersistenceUseCase {
 
     private final PagamentoRepositoryPort repository;
-        private final RabbitTemplate rabbitTemplate;
+    private final ChavePixRepositoryPort chavePixRepository;
 
-    public PaymentPersistenceService(PagamentoRepositoryPort repository, RabbitTemplate rabbitTemplate) {
+    public PaymentPersistenceService(PagamentoRepositoryPort repository, ChavePixRepositoryPort chavePixRepository) {
         this.repository = repository;
-        this.rabbitTemplate = rabbitTemplate;
+        this.chavePixRepository = chavePixRepository;
     }
 
     @Override
     public void persist(PagamentoMessage message, boolean sucesso) {
-        StatusPagamento status = sucesso ? StatusPagamento.SUCESSO : StatusPagamento.FALHOU;
+        // Valida message caso tenha dado erro na fila
+        if (message == null) {
+            System.out.println("Mensagem de pagamento nula. Abortando persist.");
+            return;
+        }
 
-        // Verifica se o pagamento já existe no MongoDB
+        // Valida amount caso venha zerado na fila
+        BigDecimal amount = message.getAmount();
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            System.out.println("Valor do pagamento inválido (null ou <= 0) para id=" + message.getId());
+            Pagamento invalid = buildPagamentoFromMessage(message, StatusPagamento.FALHOU, "Valor inválido");
+            repository.save(invalid);
+            return;
+        }
+
+        // recupera caso existe, se não cria um novo
         Optional<Pagamento> existingPagamentoOpt = repository.findById(message.getId());
+        Pagamento pagamento = existingPagamentoOpt.orElseGet(() -> buildPagamentoFromMessage(message, null, null));
 
-        Pagamento pagamento;
-        if (existingPagamentoOpt.isPresent()) {
-            // Atualiza o pagamento existente
-            pagamento = existingPagamentoOpt.get();
-            pagamento.setAmount(message.getAmount());
-            pagamento.setSenderAccount(message.getSenderAccount());
-            pagamento.setReceiverPixKey(message.getReceiverPixKey());
-            pagamento.setStatus(status);
-            pagamento.setErrorDescription(message.getErrorDescription());
+        // Atualiza os campos
+        pagamento.setAmount(amount);
+        pagamento.setSenderAccount(message.getSenderAccount());
+        pagamento.setReceiverPixKey(message.getReceiverPixKey());
+        pagamento.setErrorDescription(message.getErrorDescription());
+
+        // Caso o processamento externo marcou sucesso fazemos a transferência
+        if (sucesso) {
+            // Busca sender e receiver
+            Optional<ChavePix> senderOpt = chavePixRepository.findByNumeroConta(message.getSenderAccount());
+            Optional<ChavePix> receiverOpt = chavePixRepository.findByValorChave(message.getReceiverPixKey());
+
+            if (senderOpt.isPresent() && receiverOpt.isPresent()) {
+                ChavePix sender = senderOpt.get();
+                ChavePix receiver = receiverOpt.get();
+
+                // Verifica saldo suficiente caso tenha passado errado pelo worker
+                if (sender.getSaldo().compareTo(amount) >= 0) {
+                    // Atualiza saldos
+                    sender.setSaldo(sender.getSaldo().subtract(amount));
+                    receiver.setSaldo(receiver.getSaldo().add(amount));
+
+                    chavePixRepository.save(sender);
+                    chavePixRepository.save(receiver);
+
+                    pagamento.setStatus(StatusPagamento.SUCESSO);
+                    pagamento.setErrorDescription(null);
+                    System.out.println("Pagamento " + pagamento.getId() + " aplicado: " + amount + " debitado de " + sender.getNumeroConta() + " e creditado em " + receiver.getNumeroConta());
+                } else {// caso Saldo insuficiente
+                    pagamento.setStatus(StatusPagamento.FALHOU);
+                    pagamento.setErrorDescription("Saldo insuficiente");
+                    System.out.println("Pagamento " + pagamento.getId() + " falhou: saldo insuficiente em conta " + sender.getNumeroConta());
+                }
+
+            } else {
+                // Remetente ou destinatário não encontrados
+                pagamento.setStatus(StatusPagamento.FALHOU);
+                pagamento.setErrorDescription("Conta remetente ou chave destinatário não encontrada");
+                System.out.println("Pagamento " + pagamento.getId() + " falhou: sender ou receiver não encontrados (senderPresent=" + senderOpt.isPresent() + ", receiverPresent=" + receiverOpt.isPresent() + ")");
+            }
+
         } else {
-            pagamento = new Pagamento(
+            pagamento.setStatus(StatusPagamento.FALHOU);
+            if (pagamento.getErrorDescription() == null || pagamento.getErrorDescription().isEmpty()) {
+                pagamento.setErrorDescription("Processamento externo marcou falha");
+            }
+            System.out.println("Pagamento " + pagamento.getId() + " marcado como FALHOU por processamento externo.");
+        }
+
+        // Salva o pagamento por ultimo com o status correto (SUCESSO ou FALHOU)
+        repository.save(pagamento);
+    }
+
+    private Pagamento buildPagamentoFromMessage(PagamentoMessage message, StatusPagamento status, String error) {
+        Pagamento p = new Pagamento(
                 message.getId(),
                 message.getAmount(),
                 message.getSenderAccount(),
                 message.getReceiverPixKey(),
                 status,
-                message.getErrorDescription()
-            );
-        }
-
-        repository.save(pagamento);
+                error
+        );
+        return p;
     }
 }

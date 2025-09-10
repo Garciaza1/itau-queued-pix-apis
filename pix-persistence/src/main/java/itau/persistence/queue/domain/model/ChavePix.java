@@ -1,4 +1,4 @@
-package itau.gateway.queue.domain.model.chave;
+package itau.persistence.queue.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
