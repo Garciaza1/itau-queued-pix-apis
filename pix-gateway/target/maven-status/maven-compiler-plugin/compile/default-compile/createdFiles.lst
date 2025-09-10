@@ -24,7 +24,6 @@ itau\gateway\queue\domain\exception\UnprocessableEntityException.class
 itau\gateway\queue\domain\model\chave\InclusaoChavePixResponse.class
 itau\gateway\queue\application\service\ChavePixService.class
 itau\gateway\queue\infrastructure\config\RabbitMQConfig.class
-itau\gateway\queue\infrastructure\config\BeanConfig.class
 itau\gateway\queue\QueueApplication.class
 itau\gateway\queue\application\port\PaymentMessageSenderPort.class
 itau\gateway\queue\domain\exception\NotFoundException.class

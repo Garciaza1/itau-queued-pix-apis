@@ -22,7 +22,6 @@ C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\mai
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\RabbitMqAdapter.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\SpringDataChavePixRepository.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\adapter\out\SpringDataPagamentoRepository.java
-C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\BeanConfig.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\IdGenerator.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\MongoConfig.java
 C:\Users\Pichau\Documents\Apps\Itau-Pix\itau-queued-pix-apis\pix-gateway\src\main\java\itau\gateway\queue\infrastructure\config\RabbitMQConfig.java
