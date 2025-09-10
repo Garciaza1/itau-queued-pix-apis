@@ -1,5 +1,6 @@
 package itau.gateway.queue.domain.model.chave;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class InclusaoChavePixResponse {
     private String tipoConta;
     private String numeroAgencia;
     private String numeroConta;
+    private BigDecimal saldo;
     private String nomeCorrentista;
     private String sobrenomeCorrentista;
     private LocalDateTime dataHoraInclusao;

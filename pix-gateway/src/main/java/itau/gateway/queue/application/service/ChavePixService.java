@@ -37,6 +37,7 @@ public class ChavePixService implements ChavePixUseCase {
                 .id(UUID.randomUUID())
                 .tipoChave(request.getTipoChave())
                 .valorChave(request.getValorChave())
+                .saldo(request.getSaldo())
                 .tipoConta(request.getTipoConta())
                 .numeroAgencia(request.getNumeroAgencia())
                 .numeroConta(request.getNumeroConta())
@@ -54,6 +55,7 @@ public class ChavePixService implements ChavePixUseCase {
                 saved.getTipoConta(),
                 saved.getNumeroAgencia(),
                 saved.getNumeroConta(),
+                saved.getSaldo(),
                 saved.getNomeCorrentista(),
                 saved.getSobrenomeCorrentista(),
                 saved.getDataHoraInclusao(),

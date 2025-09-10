@@ -3,6 +3,6 @@ Content-Type: application/json
 
 {
   "amount": 200.00,
-  "senderAccount": "1234",
+  "senderAccount": "12345679",
   "receiverPixKey": "12345678802"
 }
