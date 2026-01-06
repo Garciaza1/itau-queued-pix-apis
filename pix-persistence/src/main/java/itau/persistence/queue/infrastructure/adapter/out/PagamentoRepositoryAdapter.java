@@ -1,5 +1,7 @@
 package itau.persistence.queue.infrastructure.adapter.out;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Component;
 
 import itau.persistence.queue.application.port.out.PagamentoRepositoryPort;
@@ -16,11 +18,11 @@ public class PagamentoRepositoryAdapter implements PagamentoRepositoryPort {
 
     @Override
     public Pagamento save(Pagamento pagamento) {
-        return repository.save(pagamento);
+        return repository.save(Objects.requireNonNull(pagamento, "Pagamento não pode ser nulo"));
     }
 
     @Override
     public java.util.Optional<Pagamento> findById(String id) {
-        return repository.findById(id);
+        return repository.findById(Objects.requireNonNull(id, "ID não pode ser nulo"));
     }
 }

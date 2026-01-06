@@ -1,5 +1,6 @@
 package itau.worker.queue.infrastructure.config;
 
+import java.util.Objects;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -47,8 +48,8 @@ public class RabbitMQConfig {
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter messageConverter) {
-        RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(messageConverter);
+        RabbitTemplate template = new RabbitTemplate(Objects.requireNonNull(connectionFactory, "ConnectionFactory não pode ser nulo"));
+        template.setMessageConverter(Objects.requireNonNull(messageConverter, "MessageConverter não pode ser nulo"));
 
         template.setConfirmCallback((correlationData, ack, cause) -> {
             String id = (correlationData != null) ? correlationData.getId() : "N/A";

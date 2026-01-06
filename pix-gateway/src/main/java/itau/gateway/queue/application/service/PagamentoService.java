@@ -1,5 +1,6 @@
 package itau.gateway.queue.application.service;
 
+import java.util.concurrent.TimeUnit;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,19 @@ import itau.gateway.queue.infrastructure.config.IdGenerator;
 import itau.pix.commons.enums.StatusPagamento;
 import itau.pix.commons.messaging.RabbitMQConstants;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+
 @Service
 public class PagamentoService implements PagamentoUseCase {
 
     private final IdGenerator idGenerator;
     private final PaymentRepositoryPort paymentRepository;
     private final RabbitTemplate rabbitTemplate;
+
+    private final Cache<String, Boolean> transactionCache = Caffeine.newBuilder()
+            .expireAfterWrite(2, TimeUnit.MINUTES)
+            .build();
 
     public PagamentoService(IdGenerator idGenerator, PaymentRepositoryPort paymentRepository, RabbitTemplate rabbitTemplate) {
         this.idGenerator = idGenerator;
@@ -27,9 +35,30 @@ public class PagamentoService implements PagamentoUseCase {
 
     @Override
     public void processPayment(Pagamento paymentRequest) {
+        // Assinatura para evitar duplicidade acidental (2 minutos)
+        String transactionSignature = String.format("%s-%s-%s",
+                paymentRequest.getSenderAccount(),
+                paymentRequest.getReceiverPixKey(),
+                paymentRequest.getAmount().toPlainString());
 
-        // gera id unico
-        String paymentId = idGenerator.generateId();
+        if (transactionCache.getIfPresent(transactionSignature) != null) {
+            System.out.println("⚠️ AVISO: Transação idêntica detectada nos últimos 2 minutos.");
+            return;
+        }
+
+        // Definição do ID (Idempotência)
+        String paymentId = (paymentRequest.getId() == null || paymentRequest.getId().isEmpty())
+                ? idGenerator.generateId()
+                : paymentRequest.getId();
+
+        // Verifica se ID já existe no banco
+        if (paymentRepository.findById(paymentId).isPresent()) {
+            System.out.println("ID de pagamento já processado: " + paymentId);
+            return;
+        }
+
+        // Se passou, bloqueia no cache e prossegue
+        transactionCache.put(transactionSignature, true);
 
         Pagamento paymentEntity = new Pagamento();
         paymentEntity.setId(paymentId);
@@ -38,7 +67,6 @@ public class PagamentoService implements PagamentoUseCase {
         paymentEntity.setReceiverPixKey(paymentRequest.getReceiverPixKey());
         paymentEntity.setStatus(StatusPagamento.PROCESSANDO);
 
-        // salva asincronamente.
         saveAsync(paymentEntity);
 
         PagamentoMessage paymentMessage = new PagamentoMessage();
@@ -48,13 +76,11 @@ public class PagamentoService implements PagamentoUseCase {
         paymentMessage.setReceiverPixKey(paymentRequest.getReceiverPixKey());
 
         rabbitTemplate.convertAndSend(RabbitMQConstants.FILA_PAGAMENTO, paymentMessage);
-        System.out.println("Payment with ID " + paymentId + " has been sent to the processing RabbitMQ queue.");
+        System.out.println("Payment with ID " + paymentId + " sent to queue.");
     }
 
-    // dependendo das regras de negocio podemos deixar ou não o save asincrono
     @Async
     public void saveAsync(Pagamento paymentEntity) {
         paymentRepository.save(paymentEntity);
-        System.out.println("Payment with ID " + paymentEntity.getId() + " has been saved - PROCESSANDO.");
     }
 }

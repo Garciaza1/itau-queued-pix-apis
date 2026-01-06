@@ -1,5 +1,6 @@
 package itau.worker.queue.application.service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.amqp.core.Queue;
@@ -67,22 +68,24 @@ public class PagamentoWorkerService implements PagamentoWorkerUseCase {
     }
 
     private void handleFailed(PagamentoMessage message) {
+        String messageId = Objects.requireNonNull(message.getId(), "ID da mensagem não pode ser nulo");
         if (message.getRetryCount() < 3) {
             message.setRetryCount(message.getRetryCount() + 1);
             // ao reenfileirar, manter status null (indica pendente) e enviar para fila principal
             message.setStatus(null);
-            rabbitTemplate.convertAndSend(paymentQueue.getName(), message, new CorrelationData(message.getId()));
+            rabbitTemplate.convertAndSend(paymentQueue.getName(), message, new CorrelationData(messageId));
             System.out.println("🔄 Retrying payment " + message.getId() + " attempt " + message.getRetryCount() + " - reason: " + message.getErrorDescription());
         } else {
             message.setStatus(StatusPagamento.FALHOU);
-            rabbitTemplate.convertAndSend(failedQueue.getName(), message, new CorrelationData(message.getId()));
+            rabbitTemplate.convertAndSend(failedQueue.getName(), message, new CorrelationData(messageId));
             System.out.println("❌ Payment " + message.getId() + " failed after 3 attempts: " + message.getErrorDescription());
         }
     }
 
     private void handleSuccess(PagamentoMessage message) {
+        String messageId = Objects.requireNonNull(message.getId(), "ID da mensagem não pode ser nulo");
         message.setStatus(StatusPagamento.SUCESSO);
-        rabbitTemplate.convertAndSend(successQueue.getName(), message, new CorrelationData(message.getId()));
+        rabbitTemplate.convertAndSend(successQueue.getName(), message, new CorrelationData(messageId));
         System.out.println("✅ Payment " + message.getId() + " validated successfully");
     }
 }

@@ -1,5 +1,6 @@
 package itau.persistence.queue.infrastructure.adapter.out;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,11 +35,11 @@ public class ChavePixRepositoryAdapter implements ChavePixRepositoryPort {
 
     @Override
     public ChavePix save(ChavePix chavePix) {
-        return mongoRepository.save(chavePix);
+        return mongoRepository.save(Objects.requireNonNull(chavePix, "ChavePix não pode ser nulo"));
     }
 
     @Override
     public Optional<ChavePix> findById(UUID id) {
-        return mongoRepository.findById(id);
+        return mongoRepository.findById(Objects.requireNonNull(id, "UUID não pode ser nulo"));
     }
 }

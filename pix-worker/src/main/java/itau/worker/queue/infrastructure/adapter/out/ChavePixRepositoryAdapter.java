@@ -1,6 +1,7 @@
 package itau.worker.queue.infrastructure.adapter.out;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class ChavePixRepositoryAdapter implements ChavePixRepositoryPort {
 
     @Override
     public Optional<ChavePix> findById(String id) {
-        return repository.findById(id);
+        return repository.findById(Objects.requireNonNull(id, "ID não pode ser nulo"));
     }
 
     @Override

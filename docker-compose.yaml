@@ -15,7 +15,8 @@ services:
       MONGO_INITDB_DATABASE: itau_challenge
     healthcheck:
       test:
-        ["CMD-SHELL", 'mongosh --eval ''db.adminCommand("ping")'' || exit 1']
+        ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+        # ["CMD-SHELL", 'mongosh --eval ''db.adminCommand("ping")'' || exit 1']
       interval: 10s
       timeout: 5s
       retries: 10

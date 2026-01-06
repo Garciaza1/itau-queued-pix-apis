@@ -1,5 +1,7 @@
 package itau.persistence.queue.infrastructure.config;
 
+import java.util.Objects;
+
 import org.bson.UuidRepresentation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +20,9 @@ import itau.pix.commons.config.DatabaseConstants;
 public class MongoConfig {
 
     @Bean
+    @SuppressWarnings("unused")
     MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
-        return new MongoTransactionManager(dbFactory);
+        return new MongoTransactionManager(Objects.requireNonNull(dbFactory, "MongoDatabaseFactory não pode ser nulo"));
     }
 
     @Bean
@@ -41,6 +44,6 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate(MongoClient mongoClient) {
-        return new MongoTemplate(mongoClient, DatabaseConstants.DATABASE_NAME);
+        return new MongoTemplate(Objects.requireNonNull(mongoClient, "MongoClient não pode ser nulo"), DatabaseConstants.DATABASE_NAME);
     }
 }
