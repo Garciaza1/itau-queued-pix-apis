@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itau.persistence.queue.application.port.in.PagamentoPersistenceUseCase;
 import itau.persistence.queue.application.port.out.ChavePixRepositoryPort;
@@ -25,6 +26,7 @@ public class PaymentPersistenceService implements PagamentoPersistenceUseCase {
     }
 
     @Override
+    @Transactional // utilizado para garantir que quando houver atualização de saldo das contas, tudo ocorra em uma transação unica sem perder a consistência.
     public void persist(PagamentoMessage message, boolean sucesso) {
         // Valida message caso tenha dado erro na fila
         if (message == null) {

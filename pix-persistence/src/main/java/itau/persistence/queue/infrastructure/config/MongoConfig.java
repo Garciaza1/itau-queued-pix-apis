@@ -3,6 +3,8 @@ package itau.persistence.queue.infrastructure.config;
 import org.bson.UuidRepresentation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.mongodb.ConnectionString;
@@ -14,6 +16,11 @@ import itau.pix.commons.config.DatabaseConstants;
 
 @Configuration
 public class MongoConfig {
+
+    @Bean
+    MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
+        return new MongoTransactionManager(dbFactory);
+    }
 
     @Bean
     public MongoClient mongoClient() {
